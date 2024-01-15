@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    container_name: medhub-service-postgres-container
+    environment:
+      POSTGRES_DB: med-hub-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./postgres-db-data:/data/postgres
+    ports:
+      - "5432:5432"
