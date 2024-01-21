@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet author="lissz" id="007">
+        <preConditions onFail="WARN">
+            <not>
+                <tableExists tableName="availability"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="availability">
+            <column name="availability_id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="doctor_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="day_of_week" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_time" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_time" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="availability" baseColumnNames="doctor_id"
+                                 referencedTableName="doctors" referencedColumnNames="doctor_id"
+                                 constraintName="fk_doctor_id"/>
+    </changeSet>
+
+</databaseChangeLog>

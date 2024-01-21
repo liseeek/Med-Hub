@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet author="lissz" id="010">
+        <sql>
+            DROP TRIGGER IF EXISTS set_default_availability_trigger ON doctors;
+            CREATE TRIGGER set_default_availability_trigger
+                AFTER INSERT ON doctors
+                FOR EACH ROW
+                EXECUTE FUNCTION set_default_availability();
+        </sql>
+        <rollback>
+            DROP TRIGGER set_default_availability_trigger ON doctors;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

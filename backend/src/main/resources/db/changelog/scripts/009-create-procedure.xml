@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet author="lissz" id="009">
+        <createProcedure>
+            CREATE OR REPLACE FUNCTION set_default_availability()
+                    RETURNS TRIGGER AS $$
+            BEGIN
+            INSERT INTO availability (doctor_id, day_of_week, start_time, end_time)
+            VALUES (NEW.doctor_id, 1, TIME '10:00', TIME '18:00'),
+                   (NEW.doctor_id, 2, TIME '10:00', TIME '18:00'),
+                   (NEW.doctor_id, 3, TIME '10:00', TIME '18:00'),
+                   (NEW.doctor_id, 4, TIME '10:00', TIME '18:00'),
+                   (NEW.doctor_id, 5, TIME '10:00', TIME '18:00');
+
+            RETURN NEW;
+            END;
+                $$ LANGUAGE plpgsql;
+        </createProcedure>
+        <rollback>
+            DROP FUNCTION set_default_availability();
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

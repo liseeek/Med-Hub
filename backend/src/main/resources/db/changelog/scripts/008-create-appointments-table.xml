@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet author="lissz" id="008">
+        <preConditions onFail="WARN">
+            <not>
+                <tableExists tableName="appointments"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="appointments">
+            <column name="appointment_id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="doctor_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="appointment_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="appointment_time" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="duration" type="INTERVAL" defaultValueComputed="INTERVAL '1 hour'">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="appointments" baseColumnNames="user_id"
+                                 referencedTableName="users" referencedColumnNames="user_id"
+                                 constraintName="fk_user_id"/>
+
+        <addForeignKeyConstraint baseTableName="appointments" baseColumnNames="doctor_id"
+                                 referencedTableName="doctors" referencedColumnNames="doctor_id"
+                                 constraintName="fk_doctor_id"/>
+
+        <addForeignKeyConstraint baseTableName="appointments" baseColumnNames="location_id"
+                                 referencedTableName="locations" referencedColumnNames="location_id"
+                                 constraintName="fk_location_id"/>
+    </changeSet>
+
+</databaseChangeLog>
