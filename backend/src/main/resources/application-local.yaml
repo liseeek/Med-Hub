@@ -3,3 +3,12 @@ spring:
     url: jdbc:postgresql://localhost:5432/med-hub-db
     username: postgres
     password: password
+
+jwt:
+  permit:
+    all:
+      - /swagger-ui/**
+      - /swagger-resources/*
+      - /v3/api-docs/**
+      - /v1/auth/signup
+      - /v1/users/registration

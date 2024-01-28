@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
-    <changeSet author="lissz" id="010">
+    <changeSet author="lissz" id="009">
         <sql>
             DROP TRIGGER IF EXISTS set_default_availability_trigger ON doctors;
             CREATE TRIGGER set_default_availability_trigger

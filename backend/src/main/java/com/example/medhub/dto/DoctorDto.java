@@ -1,6 +1,6 @@
 package com.example.medhub.dto;
 
-import com.example.medhub.entity.Doctor;
+import com.example.medhub.entity.DoctorEntity;
 import com.example.medhub.mapper.DoctorMapper;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ public class DoctorDto {
     private final LocationDto location;
     private final SpecializationDto specialization;
 
-    public static DoctorDto from(Doctor savedDoctor) {
-        return DoctorMapper.DOCTOR_MAPPER.toDoctorDto(savedDoctor);
+    public static DoctorDto from(DoctorEntity doctorEntity, SpecializationDto specialization) {
+        return DoctorMapper.DOCTOR_MAPPER.toDoctorDto(doctorEntity, specialization);
     }
 }

@@ -1,6 +1,6 @@
 package com.example.medhub.controller;
 
-import com.example.medhub.dto.create.DoctorCreateRequestDto;
+import com.example.medhub.dto.request.DoctorCreateRequestDto;
 import com.example.medhub.dto.DoctorDto;
 import com.example.medhub.service.DoctorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/doctors")
+@RequestMapping("/v1/doctors")
 public class DoctorController {
 
     private final DoctorService doctorService;

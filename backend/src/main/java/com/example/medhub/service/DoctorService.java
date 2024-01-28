@@ -1,14 +1,13 @@
 package com.example.medhub.service;
 
-import com.example.medhub.dto.create.DoctorCreateRequestDto;
+import com.example.medhub.dto.LocationDto;
+import com.example.medhub.dto.SpecializationDto;
+import com.example.medhub.dto.request.DoctorCreateRequestDto;
 import com.example.medhub.dto.DoctorDto;
-import com.example.medhub.entity.Doctor;
-import com.example.medhub.entity.DoctorSpecialization;
-import com.example.medhub.entity.Specialization;
-import com.example.medhub.entity.Location;
-import com.example.medhub.entity.keys.DoctorSpecializationId;
+import com.example.medhub.entity.DoctorEntity;
+import com.example.medhub.entity.LocationEntity;
+import com.example.medhub.entity.SpecializationEntity;
 import com.example.medhub.repository.DoctorRepository;
-import com.example.medhub.repository.DoctorSpecializationRepository;
 import com.example.medhub.repository.LocationRepository;
 import com.example.medhub.repository.SpecializationRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.webjars.NotFoundException;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,52 +25,56 @@ public class DoctorService {
     private final DoctorRepository doctorRepository;
     private final LocationRepository locationRepository;
     private final SpecializationRepository specializationRepository;
-    private final DoctorSpecializationRepository doctorSpecializationRepository;
 
     @Transactional
     public DoctorDto saveDoctor(DoctorCreateRequestDto newDoctorDto) {
-        // Create and save the location
-        Location location = new Location(null, newDoctorDto.getLocationName(),
-                newDoctorDto.getAddress(), newDoctorDto.getCity(),
-                newDoctorDto.getCountry());
-        location = locationRepository.save(location);
+        LocationEntity locationEntity = new LocationEntity(null, newDoctorDto.getLocationName(), newDoctorDto.getAddress(), newDoctorDto.getCity(), newDoctorDto.getCountry());
+        locationEntity = locationRepository.save(locationEntity);
 
-        // Create and save the doctor with the new location
-        Doctor doctor = Doctor.from(newDoctorDto);
-        doctor.setLocation(location); // Associate the doctor with the location
-        Doctor savedDoctor = doctorRepository.save(doctor);
+        SpecializationEntity specializationEntity = specializationRepository.findById(newDoctorDto.getSpecializationId())
+                .orElseThrow(() -> new RuntimeException("Specialization not found"));
 
-        // Handle a single specialization
-        Specialization specialization = specializationRepository.findById(newDoctorDto.getSpecializationIds())
-                .orElseThrow(() -> new NotFoundException("Specialization not found: " + newDoctorDto.getSpecializationIds()));
+        DoctorEntity doctorEntity = new DoctorEntity();
+        doctorEntity.setName(newDoctorDto.getName());
+        doctorEntity.setSurname(newDoctorDto.getSurname());
+        doctorEntity.setLocationEntity(locationEntity);
+        doctorEntity.setSpecializationEntity(specializationEntity);
+        DoctorEntity savedDoctorEntity = doctorRepository.save(doctorEntity);
 
-        DoctorSpecializationId doctorSpecializationId = new DoctorSpecializationId(savedDoctor.getDoctorId(), specialization.getSpecializationId());
-        DoctorSpecialization doctorSpecialization = new DoctorSpecialization(doctorSpecializationId);
-        doctorSpecializationRepository.save(doctorSpecialization);
+        SpecializationDto specializationDto = new SpecializationDto(specializationEntity.getSpecializationId(), specializationEntity.getSpecializationName());
 
-        // Convert Doctor to DoctorDto
-        return DoctorDto.from(savedDoctor);
+        return DoctorDto.from(savedDoctorEntity, specializationDto);
     }
 
     public List<DoctorDto> getAllDoctors() {
-        List<Doctor> allDoctors = doctorRepository.findAll();
-        List<Long> doctorIds = allDoctors.stream()
-                .map(Doctor::getDoctorId)
-                .toList();
-        List<DoctorSpecialization> allByDoctorSpecializationIdDoctorIdIn = doctorSpecializationRepository.findAllByDoctorSpecializationIdDoctorIdIn(doctorIds);
-        List<Long> specializationIds = allByDoctorSpecializationIdDoctorIdIn.stream()
-                        .map(id -> id.getDoctorSpecializationId().getSpecializationId())
-                                .toList();
-        List<Specialization> doctorSpecializationIds = specializationRepository.findAllBySpecializationIdIn(specializationIds);
-        return allDoctors.stream()
-                .map(DoctorDto::from)
-                .toList();
+        List<DoctorEntity> allDoctorEntities = doctorRepository.findAll();
+
+        return allDoctorEntities.stream()
+                .map(doctor -> {
+                    SpecializationDto specializationDto = null;
+                    if (doctor.getSpecializationEntity() != null) {
+                        SpecializationEntity specializationEntity = doctor.getSpecializationEntity();
+                        specializationDto = new SpecializationDto(specializationEntity.getSpecializationId(), specializationEntity.getSpecializationName());
+                    }
+                    return DoctorDto.from(doctor, specializationDto);
+                })
+                .collect(Collectors.toList());
     }
 
     public DoctorDto getDoctor(Long id) {
-        Doctor doctor = doctorRepository.findById(id)
+        DoctorEntity doctorEntity = doctorRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Doctor with id = %s not found".formatted(id)));
-        doctorSpecializationRepository.findById
-        return DoctorDto.from(doctor);
+
+        SpecializationDto specializationDto = null;
+        if (doctorEntity.getSpecializationEntity() != null) {
+            SpecializationEntity specializationEntity = doctorEntity.getSpecializationEntity();
+            specializationDto = new SpecializationDto(specializationEntity.getSpecializationId(), specializationEntity.getSpecializationName());
+        }
+
+        LocationEntity locationEntity = doctorEntity.getLocationEntity();
+        LocationDto locationDto = locationEntity != null ?
+                new LocationDto(locationEntity.getLocationId(), locationEntity.getLocationName(), locationEntity.getAddress(), locationEntity.getCity(), locationEntity.getCountry()) : null;
+
+        return new DoctorDto(doctorEntity.getDoctorId(), doctorEntity.getName(), doctorEntity.getSurname(), locationDto, specializationDto);
     }
 }

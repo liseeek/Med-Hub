@@ -9,8 +9,27 @@ spring:
       mode: never
   jpa:
     database: postgresql
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+  jackson:
+    visibility:
+      field: none
+      setter: none
+      getter: any
+      is-getter: any
+    deserialization:
+      fail-on-unknown-properties:
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+jwt:
+  secret:
+    key: 5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
+  permit:
+    all:
+      - /v1/auth/signup
+      - /v1/users/registration

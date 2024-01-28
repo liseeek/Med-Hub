@@ -1,6 +1,6 @@
 package com.example.medhub.dto;
 
-import com.example.medhub.entity.User;
+import com.example.medhub.entity.UserEntity;
 import com.example.medhub.mapper.UserMapper;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class UserDto {
 
     private final String phoneNumber;
 
-    public static UserDto from(User savedUser) {
-        return UserMapper.USER_MAPPER.toUserDto(savedUser);
+    public static UserDto from(UserEntity userEntity) {
+        return UserMapper.USER_MAPPER.toUserDto(userEntity);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.medhub.dto.create;
+package com.example.medhub.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -9,8 +9,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 @Schema(description = """
-        Schema responsible for handling new doctor creation operation.
-        Contains all required information which must be provided to create and save a new doctor in the system.
+        Schema responsible for handling new doctorEntity creation operation.
+        Contains all required information which must be provided to create and save a new doctorEntity in the system.
         """)
 public class DoctorCreateRequestDto {
 
@@ -24,7 +24,7 @@ public class DoctorCreateRequestDto {
     @Schema(example = "Doe")
     private final String surname;
 
-    // Assuming location details are part of the doctor creation
+    // Assuming location details are part of the doctorEntity creation
     @NotBlank
     @Size(max = 255)
     @Schema(example = "Central Hospital")
@@ -45,10 +45,10 @@ public class DoctorCreateRequestDto {
     @Schema(example = "USA")
     private final String country;
 
-    // If you have specializations as part of doctor creation
+    // If you have specializations as part of doctorEntity creation
     // Use an appropriate type to represent the specializations, e.g., a list of IDs
     @Schema(example = "1")
-    private final Long specializationIds;
+    private final Long specializationId;
 
 
     // Constructors, getters and additional methods

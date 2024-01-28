@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
-    <changeSet author="lissz" id="008">
+    <changeSet author="lissz" id="007">
         <preConditions onFail="WARN">
             <not>
                 <tableExists tableName="appointments"/>
@@ -25,9 +25,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="appointment_time" type="TIME">
-                <constraints nullable="false"/>
-            </column>
-            <column name="duration" type="INTERVAL" defaultValueComputed="INTERVAL '1 hour'">
                 <constraints nullable="false"/>
             </column>
             <column name="location_id" type="INT">

@@ -1,6 +1,6 @@
 package com.example.medhub.entity;
 
-import com.example.medhub.dto.create.DoctorCreateRequestDto;
+import com.example.medhub.dto.request.DoctorCreateRequestDto;
 import com.example.medhub.mapper.DoctorMapper;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Table(name = "doctors")
-public class Doctor {
+public class DoctorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "doctor_id")
@@ -26,9 +26,13 @@ public class Doctor {
 
     @OneToOne
     @JoinColumn(name = "location_id")
-    private Location location;
+    private LocationEntity locationEntity;
 
-    public static Doctor from(DoctorCreateRequestDto newDoctor) {
+    @ManyToOne
+    @JoinColumn(name = "specialization_id")
+    private SpecializationEntity specializationEntity;
+
+    public static DoctorEntity from(DoctorCreateRequestDto newDoctor) {
         return DoctorMapper.DOCTOR_MAPPER.toDoctor(newDoctor);
     }
 }

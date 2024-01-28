@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
-    <changeSet author="lissz" id="009">
+    <changeSet author="lissz" id="008">
         <createProcedure>
             CREATE OR REPLACE FUNCTION set_default_availability()
                     RETURNS TRIGGER AS $$

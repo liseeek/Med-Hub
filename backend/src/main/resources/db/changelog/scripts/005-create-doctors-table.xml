@@ -27,6 +27,9 @@
             <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
+            <column name="specialization_id" type="bigint">
+                <constraints nullable="true" foreignKeyName="fk_specialization" referencedTableName="specializations" referencedColumnNames="specialization_id"/>
+            </column>
         </createTable>
 
         <addForeignKeyConstraint baseTableName="doctors" baseColumnNames="location_id"

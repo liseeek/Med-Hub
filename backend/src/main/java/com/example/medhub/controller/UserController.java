@@ -1,6 +1,6 @@
 package com.example.medhub.controller;
 
-import com.example.medhub.dto.create.UserCreateRequestDto;
+import com.example.medhub.dto.request.UserCreateRequestDto;
 import com.example.medhub.dto.UserDto;
 import com.example.medhub.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/users")
+@RequestMapping("/v1/users")
 public class UserController {
 
     private final UserService userService;
