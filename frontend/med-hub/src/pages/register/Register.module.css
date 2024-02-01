@@ -1,0 +1,71 @@
+.registerContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.registerContent {
+    width: 30%;
+}
+
+.registerTitle {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.registerForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.registerForm input {
+    margin: 0 1em 1em 1em;
+    padding-left: 0.5em;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 4px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    line-height: 4em;
+}
+
+.registerButton {
+    margin: 0 1em 1em 1em;
+    padding-left: 0.5em;
+    background: #6BCBB8;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    line-height: 4em;
+    font-weight: bold;
+}
+
+.registerMessages {
+    text-align: center;
+    color: #ff0000;
+}
+
+@media only screen and (max-device-width: 420px) {
+    .registerContainer {
+        flex-direction: column;
+    }
+
+    .registerContent {
+        width: 100%;
+    }
+
+    .registerForm {
+        width: 90%;
+    }
+
+    .registerForm input, .registerButton {
+        font-size: 1.5rem;
+    }
+
+    .registerLogo img {
+        margin: 2rem;
+    }
+}

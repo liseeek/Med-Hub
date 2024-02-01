@@ -1,0 +1,83 @@
+.loginContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.loginInnerContainer {
+    width: 30%;
+}
+
+.loginMessages {
+    text-align: center;
+    color: #ff0000;
+}
+
+.loginInput {
+    margin: 0 1em 1em 1em;
+    padding-left: 0.5em;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 4px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    line-height: 4em;
+}
+
+.loginButton {
+    margin: 0 1em 1em 1em;
+    padding-left: 0.5em;
+    background: #6BCBB8;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    line-height: 4em;
+    font-weight: bold;
+}
+
+.loginRegisterButton {
+    margin: 0 1em 1em 1em;
+    padding-left: 0.5em;
+    background: #6BCBB8;
+    color: #163dda;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    line-height: 4em;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+@media only screen and (max-device-width: 420px) {
+    .loginContainer {
+        flex-direction: column;
+    }
+
+    .loginForm {
+        width: 90%;
+    }
+    
+
+    .loginInnerContainer {
+        width: 100%;
+    }
+
+    .loginLogo img {
+        margin: 2rem;
+    }
+
+    /* Specific font size changes for the Login component */
+    .loginInput,
+    .loginButton,
+    .loginRegisterButton {
+        font-size: 1.5rem; /* Update this value as needed */
+    }
+}

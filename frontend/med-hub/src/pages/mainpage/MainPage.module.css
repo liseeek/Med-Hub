@@ -1,0 +1,207 @@
+.mainPageBaseContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.mainPageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.mainPageLogo img {
+  width: 10rem;
+  padding-top: 5%;
+  margin-right: 3em;
+}
+
+.mainPageMessages {
+  text-align: center;
+  color: #ff0000;
+}
+
+.mainPageContentContainer {
+  display: flex;
+  align-items: center;
+}
+  
+.mainPageLeftSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 50%;
+}
+
+.mainPageButtonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.mainPageBookButton, .mainPageContactButton {
+  background: #6bcbb8;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2rem;
+  width: 10rem;
+  height: 3rem;
+  text-align: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.mainPageContactButton {
+  background: white;
+  color: black;
+}
+
+.mainPageHealth {
+  font-size: 1.75rem;
+}
+
+.mainPageHealth p {
+  padding-bottom: 5%;
+  font-size: 1rem;
+}
+
+.mainPageServices {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 5%;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.mainPageServices img {
+  width: 30rem;
+}
+
+.mainPageRightSection {
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+}
+
+.mainPageRightSection img {
+  max-width: 100%;
+}
+
+@media only screen and (max-device-width: 1100px) {
+  .mainPageHeader {
+    flex-direction: column; 
+    align-items: center;
+  }
+
+  .mainPageLogo img {
+    padding-top: 10%;
+    margin: 0;
+  }
+
+  .mainPageContentContainer {
+    justify-content: center;
+  }
+
+  .mainPageRightSection {
+    display: none;
+  }
+
+  .mainPageLeftSection {
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+  }
+
+  .mainPageBookButton, .mainPageContactButton {
+    width: 12rem;
+    height: 4.5rem;
+    font-size: 1.25rem;
+    border-radius: 2rem;
+  }
+
+  .mainPageHealth {
+    font-size: 2.5rem;
+  }
+
+  .mainPageHealth p {
+    font-size: 1.5rem;
+  }
+
+  .mainPageServices {
+    font-size: 1.25rem;
+    width: 100%; 
+  }
+
+  .mainPageServices img {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-device-width: 510px) {
+  .mainPageLogo img {
+    width: 20rem;
+  }
+
+  .mainPageHealth {
+    font-size: 3.75rem;
+  }
+
+  .mainPageHealth p {
+    font-size: 2rem;
+  }
+
+  .mainPageBookButton, .mainPageContactButton {
+    width: 19rem;
+    height: 7rem;
+    font-size: 2rem;
+    border-radius: 3rem;
+  }
+
+  .mainPageServices {
+    font-size: 2rem;
+    width: 100%;
+  }
+
+  .mainPageServices img {
+    width: 80%;
+    max-width: 100%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .mainPageBaseContainer, .mainPageMain {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 2000px) {
+  .mainPageHealth {
+    font-size: 2.75rem;
+  }
+
+  .mainPageHealth p {
+    font-size: 1.5rem;
+  }
+
+  .mainPageBookButton, .mainPageContactButton {
+    width: 13rem;
+    height: 3.5rem;
+    font-size: 1.25rem;
+    border-radius: 3rem;
+  }
+
+  .mainPageServices {
+    font-size: 1.25rem;
+  }
+
+  .mainPageServices img {
+    width: 40rem;
+  }
+}

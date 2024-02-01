@@ -1,0 +1,135 @@
+.scheduleBaseContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .scheduleHeader {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .scheduleLogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  .scheduleLogo img {
+    width: 40%;
+  }
+  
+  .scheduleVisits {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .scheduleSpecializationHeader {
+    font-size: 1.5rem;
+  }
+  
+  .scheduleVisitsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #FFFFFF;
+    border-radius: 1rem;
+    width: 90%;
+    margin-bottom: 1rem;
+  }
+  
+  .scheduleDataContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+  }
+  
+  .scheduleLeft {
+    text-align: left;
+    font-size: 1.25rem;
+  }
+  
+  .scheduleRight {
+    text-align: right;
+    font-size: 1.25rem;
+  }
+  
+  .scheduleCancelButton {
+    padding-bottom: 1rem;
+  }
+  
+  .scheduleCancelButtonStyle {
+    background: #d43131;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 1rem;
+    width: 10rem;
+    height: 3rem;
+    text-align: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #000000;
+    border: none;
+    cursor: pointer;
+    padding: 1rem;
+  }
+  
+  .scheduleMessages {
+    text-align: center;
+    color: #ff0000;
+  }
+  
+  @media (min-width: 768px) {
+    .scheduleVisitsContainer {
+      width: 70%;
+    }
+  }
+  
+  @media (min-width: 1100px) {
+    .scheduleBaseContainer, .scheduleMain {
+      max-width: 90%;
+      margin: 0 auto;
+    }
+  
+    .scheduleBaseContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+  
+    .scheduleHeader {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+  
+    .scheduleLogo {
+      display: block;
+    }
+  
+    .scheduleLogo img {
+      width: 50%;
+    }
+  
+    .scheduleVisitsContainer {
+      width: 60%;
+      max-width: 768px;
+    }
+  
+    .scheduleVisitsHeader {
+      font-size: 2.5rem;
+    }
+  }
+  
+  @media (min-width: 1400px) {
+    /* Adjustments for larger screens if needed */
+  }

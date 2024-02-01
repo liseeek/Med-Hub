@@ -1,0 +1,109 @@
+.bookingBaseContainter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .bookingHeader {
+    display: flex;
+    justify-content: center;
+    flex-direction: column; 
+    align-items: center;
+  }
+  
+  .bookingLogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .bookingHeader {
+    width: 100%;
+  }
+  
+  .bookingLogo img {
+    max-width: 40%;
+  }
+  
+  
+  .bookingContainer {
+    width: 100%;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .bookingMessages {
+    text-align: center;
+    color: #ff0000;
+  }
+  
+  .bookingForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    width: 30%;
+  }
+
+  .bookingForm select {
+    margin: 0 1em 1em 1em;
+    padding-left: 0.5em;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 4px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    line-height: 4em;
+  }
+  
+  .bookingForm select {
+    border-radius: 15px;
+    text-align: center;
+  }
+  
+  .bookingForm label {
+    text-align: center;
+  }
+  
+
+  .bookingButton {
+    margin: 0 1em 1em 1em;
+    padding-left: 0.5em;
+    background: #6BCBB8;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    line-height: 4em;
+    font-weight: bold;
+  }
+
+   /* Media Queries */
+   @media only screen and (max-device-width: 1099px) {
+    .bookingForm {
+      width: 90%;
+    }
+    
+    .bookingButton {
+      line-height: 3em;
+    }
+  }
+  
+  @media (min-width: 1100px) {
+    .bookingBaseContainer, .bookingMain {
+      max-width: 90%;
+      margin: 0 auto;
+    }
+  
+    .bookingHeader {
+      flex-direction: row;
+    }
+  
+    .bookingLogo {
+      display: block;
+    }
+  
+    .bookingLogo img {
+      width: 50%;
+    }
+  }
