@@ -11,7 +11,7 @@ class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
-    @PostMapping("v1/auth/signup")
+    @PostMapping("/v1/auth/login")
     AuthenticationResponse authenticateUser(@RequestBody AuthenticationRequest authenticationRequest) {
         try {
             return authenticationService.signIn(authenticationRequest);

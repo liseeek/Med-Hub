@@ -10,5 +10,7 @@ jwt:
       - /swagger-ui/**
       - /swagger-resources/*
       - /v3/api-docs/**
-      - /v1/auth/signup
+      - /v1/auth/login
       - /v1/users/registration
+      - v1/specializations
+      - v1/doctors/adding
