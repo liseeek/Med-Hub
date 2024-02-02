@@ -11,11 +11,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AppointmentsDto {
     private final Long appointmentId;
-    private final UserDto user;        // Assuming UserDto is already defined
-    private final DoctorDto doctor;    // DoctorDto as per your schema
+    private final UserDto user;
+    private final DoctorDto doctor;
     private final LocalDate date;
     private final LocalTime time;
-    private final LocationDto location;// Assuming LocationDto is already defined
+    private final LocationDto location;
 
     public static AppointmentsDto from(AppointmentsEntity appointment) {
         return AppointmentsMapper.APPOINTMENTS_MAPPER.toAppointmentDto(appointment);

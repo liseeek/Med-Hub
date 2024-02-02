@@ -61,6 +61,7 @@
   .addingForm select {
     border-radius: 15px;
     text-align: center;
+    height: 4em;
   }
   
   .addingForm label {

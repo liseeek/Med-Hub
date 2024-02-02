@@ -7,8 +7,7 @@ import services from '../../img/services.svg'
 import doctor from '../../img/doctor.svg'
 
 function MainPage() {
-    // Assuming you have logic to handle messages and other functionalities
-    const messages = []; // Replace this with your actual messages state or logic
+    const messages = [];
 
     return (
         <div>

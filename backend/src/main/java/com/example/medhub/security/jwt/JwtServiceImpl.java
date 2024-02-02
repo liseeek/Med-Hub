@@ -1,6 +1,8 @@
 package com.example.medhub.security.jwt;
 
 
+import com.example.medhub.entity.UserEntity;
+import com.example.medhub.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -8,7 +10,9 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -19,46 +23,50 @@ import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
-class JwtServiceImpl implements JwtService {
+public class JwtServiceImpl implements JwtService {
 
     private final JwtKeyProperties jwtKeyProperties;
+    private final UserRepository userRepository; // Inject your UserRepository
 
     @Override
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolvers.apply(claims);
-    }
-
-    private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-    }
-
     @Override
     public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+        UserEntity user = userRepository.findUserEntitiesByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + userDetails.getUsername()));
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", user.getUserId()); // Add the userId to the token
+        return createToken(claims, userDetails.getUsername());
     }
 
-    private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+    private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
-                .setClaims(extraClaims)
-                .setSubject(userDetails.getUsername())
+                .setClaims(claims)
+                .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // Adjust expiration as needed
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
 
     @Override
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String userName = extractUserName(token);
-        return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        final String username = extractUserName(token);
+        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+    }
+
+    public Long getUserIdFromToken(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("userId", Long.class);
+    }
+
+    // Existing methods below...
+
+    private Claims extractAllClaims(String token) {
+        return Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token).getBody();
     }
 
     private boolean isTokenExpired(String token) {
@@ -69,8 +77,14 @@ class JwtServiceImpl implements JwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
+    private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(jwtKeyProperties.getKey());
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
 }

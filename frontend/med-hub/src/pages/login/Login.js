@@ -12,30 +12,33 @@ const Login = () => {
     const [messages, setMessages] = useState('');
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     const token = getAuthToken();
-    //     if (token) {
-    //         const decodedToken = jwtDecode(token);
-    //         const currentDate = new Date();
+    useEffect(() => {
+        const token = getAuthToken();
+        if (token) {
+            const decodedToken = jwtDecode(token);
+            const currentDate = new Date();
 
-    //         // Checking if token is expired
-    //         if (decodedToken.exp * 1000 < currentDate.getTime()) {
-    //             localStorage.removeItem('auth_token'); // If expired, remove token from localStorage
-    //         } else {
-    //             navigate('/mainpage'); // If valid, redirect to main page
-    //         }
-    //     }
-    // }, [navigate]);
+            if (decodedToken.exp * 1000 < currentDate.getTime()) {
+                localStorage.removeItem('auth_token'); // If expired, remove token from localStorage
+            } else {
+                navigate('/mainpage'); // If valid, redirect to main page
+            }
+        }
+    }, [navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await request('post', '/v1/auth/login', { email, password });
-            console.log("Login response:", response); // Log the response
-            setAuthHeader(response.data.token);
-            navigate('/mainpage');
+            if (response.data.jwtToken) {
+                setAuthHeader(response.data.jwtToken);
+                console.log("Login successful, token:", response.data.jwtToken);
+                navigate('/mainpage');
+            } else {
+                setMessages("Login failed: No token received");
+            }
         } catch (error) {
-            console.error("Login error:", error); // Log any error
+            console.error("Login error:", error);
             setMessages(error.response?.data.message || 'Login failed');
         }
     };

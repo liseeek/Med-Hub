@@ -10,5 +10,5 @@ public interface SpecializationMapper {
 
     SpecializationMapper SPECIALIZATION_MAPPER = Mappers.getMapper(SpecializationMapper.class);
 
-    SpecializationDto entityToDto(SpecializationEntity entity);
+    SpecializationDto entityToDto(SpecializationEntity specializationEntity);
 }

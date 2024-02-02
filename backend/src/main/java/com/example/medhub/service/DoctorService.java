@@ -77,4 +77,22 @@ public class DoctorService {
 
         return new DoctorDto(doctorEntity.getDoctorId(), doctorEntity.getName(), doctorEntity.getSurname(), locationDto, specializationDto);
     }
+
+    public List<DoctorDto> getDoctorsBySpecialization(Long specializationId) {
+        List<DoctorEntity> doctorEntities = doctorRepository.findBySpecializationEntity_SpecializationId(specializationId);
+
+        return doctorEntities.stream()
+                .map(doctor -> {
+                    SpecializationDto specializationDto = new SpecializationDto(doctor.getSpecializationEntity().getSpecializationId(),
+                            doctor.getSpecializationEntity().getSpecializationName());
+                    LocationEntity locationEntity = doctor.getLocationEntity();
+                    LocationDto locationDto = new LocationDto(locationEntity.getLocationId(),
+                            locationEntity.getLocationName(),
+                            locationEntity.getAddress(),
+                            locationEntity.getCity(),
+                            locationEntity.getCountry());
+                    return new DoctorDto(doctor.getDoctorId(), doctor.getName(), doctor.getSurname(), locationDto, specializationDto);
+                })
+                .collect(Collectors.toList());
+    }
 }

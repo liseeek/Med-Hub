@@ -1,67 +1,96 @@
 import React, { useState, useEffect } from 'react';
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 import styles from './Schedule.module.css';
-import NavRespo from '../../components/NavRespo'; // Adjust this import as necessary
-import logo from '../../img/logo.svg'; // Update the path to your logo image
+import NavRespo from '../../components/NavRespo';
+import logo from '../../img/logo.svg';
+import axios from "axios";
+import { getAuthToken } from "../../helpers/axios_helper";
 
 const Schedule = () => {
   const [appointments, setAppointments] = useState([]);
-  const [messages, setMessages] = useState({
-    success: '',
-    error: ''
-  });
+  const [messages, setMessages] = useState('');
 
   useEffect(() => {
-    // Fetch appointments from your backend and set them in state
-    // setAppointments(fetchedAppointments);
+    const fetchAppointments = async () => {
+      const token = getAuthToken();
+      if (!token) {
+        console.error('No token found');
+        return;
+      }
+
+      try {
+        const response = await axios.get('/v1/appointments/user', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setAppointments(response.data);
+      } catch (error) {
+        console.error("Failed to fetch appointments:", error);
+        setMessages("Failed to fetch appointments. Please try again later.");
+      }
+    };
+
+    fetchAppointments();
   }, []);
 
-  const handleCancel = (appointmentId) => {
-    // Implement cancellation logic here
-    console.log("Cancel appointment ID:", appointmentId);
+  const handleCancel = async (appointmentId) => {
+    const token = getAuthToken();
+    try {
+      await axios.delete(`/v1/appointments/${appointmentId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setMessages("Appointment canceled successfully.");
+    } catch (error) {
+      console.error("Failed to cancel appointment:", error);
+      setMessages("Failed to cancel the appointment. Please try again.");
+    }
+  };
+
+  const formatDate = (dateArray) => {
+    return `${dateArray[0]}-${String(dateArray[1]).padStart(2, '0')}-${String(dateArray[2]).padStart(2, '0')}`;
+  };
+
+  const formatTime = (timeArray) => {
+    return `${String(timeArray[0]).padStart(2, '0')}:${String(timeArray[1]).padStart(2, '0')}`;
   };
 
   return (
-    <div>
+      <div>
         <Helmet>
-            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Helmet>
-    <div className={styles.scheduleBaseContainer}>
-      <header className={styles.scheduleHeader}>
-        <div className={styles.scheduleLogo}>
-          <img src={logo} alt="Logo" />
-        </div>
-        <NavRespo />
-      </header>
-      </div>
-      <main>
-        <div className={styles.scheduleVisits}>
-          {/* Display success or error messages */}
-          <div className={styles.messages}>
-            {messages.success && <div className={styles.successMessage}>{messages.success}</div>}
-            {messages.error && <div className={styles.errorMessage}>{messages.error}</div>}
-          </div>
-
-          <h1 className={styles.scheduleVisitsHeader}>Your Visits</h1>
-          {appointments.map((appointment) => (
-            <div className={styles.scheduleVisitsContainer} key={appointment.id}>
-              <h1 className={styles.specializationHeader}>{appointment.specializationName}</h1>
-              <div className={styles.dataContainer}>
-                <p className={styles.scheduleLeft}>Doctor: {appointment.doctorName}</p>
-                <p className={styles.scheduleRight}>
-                  Date: {appointment.appointmentDate}
-                  <br />
-                  Location: {appointment.address}, {appointment.city}, {appointment.country}
-                </p>
-              </div>
-              <div className={styles.scheduleCancelButton}>
-                <button onClick={() => handleCancel(appointment.id)} className={styles.cancelButtonStyle}>CANCEL</button>
-              </div>
+        <div className={styles.scheduleBaseContainer}>
+          <header className={styles.scheduleHeader}>
+            <div className={styles.scheduleLogo}>
+              <img src={logo} alt="Logo" />
             </div>
-          ))}
+            <NavRespo />
+          </header>
         </div>
-      </main>
-    </div>
+        <main>
+          <div className={styles.scheduleVisits}>
+            {messages && <div className={styles.messages}>{messages}</div>}
+            <h1 className={styles.scheduleVisitsHeader}>Your Visits</h1>
+            {appointments.map((appointment) => (
+                <div className={styles.scheduleVisitsContainer} key={appointment.appointmentId}>
+                  <h1 className={styles.scheduleSpecializationHeader}>{appointment.doctor.specialization ? appointment.doctor.specialization.specializationName : 'Specialization not available'}</h1>
+                  <div className={styles.scheduleDataContainer}>
+                    <p className={styles.scheduleLeft}>Doctor: {appointment.doctor.name} {appointment.doctor.surname}</p>
+                    <p className={styles.scheduleRight}>
+                      Date: {formatDate(appointment.date)}
+                      <br />
+                      Time: {formatTime(appointment.time)}
+                      <br />
+                      Location: {appointment.location.locationName}, {appointment.location.address}, {appointment.location.city}, {appointment.location.country}
+                    </p>
+                  </div>
+                  <div>
+                    <button onClick={() => handleCancel(appointment.appointmentId)} className={styles.cancelButtonStyle}>CANCEL</button>
+                  </div>
+                </div>
+            ))}
+          </div>
+        </main>
+      </div>
   );
 };
 

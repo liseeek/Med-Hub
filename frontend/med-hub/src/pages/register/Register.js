@@ -27,20 +27,16 @@ const Register = () => {
 
         try {
             const response = await axios.post('http://localhost:8080/v1/users/registration', user);
-            // Handle response here
             if (response.status === 200 || response.status === 201) {
                 setMessages('User registered successfully');
                 navigate('/');
             }
         } catch (error) {
             if (error.response) {
-                // Request made and server responded with a status code outside the range of 2xx
                 setMessages(error.response.data.message || 'Error during registration');
             } else if (error.request) {
-                // The request was made but no response was received
                 setMessages('No response from server');
             } else {
-                // Something happened in setting up the request that triggered an Error
                 setMessages('Error: ' + error.message);
             }
         }

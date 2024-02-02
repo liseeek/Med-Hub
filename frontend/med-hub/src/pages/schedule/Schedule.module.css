@@ -53,19 +53,19 @@
   
   .scheduleLeft {
     text-align: left;
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
   
   .scheduleRight {
     text-align: right;
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
   
   .scheduleCancelButton {
     padding-bottom: 1rem;
   }
   
-  .scheduleCancelButtonStyle {
+  .scheduleCancelButton {
     background: #d43131;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 1rem;

@@ -14,10 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Schema(description = """
-        Schema responsible of handling new userEntity creation operation.
-        Contains all required information which must be provided to create and save new userEntity in the system.
-        """)
+@Schema
 public class UserCreateRequestDto {
 
     @NotBlank

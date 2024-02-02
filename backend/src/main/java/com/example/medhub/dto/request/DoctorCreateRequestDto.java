@@ -12,10 +12,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = """
-        Schema responsible for handling new doctorEntity creation operation.
-        Contains all required information which must be provided to create and save a new doctorEntity in the system.
-        """)
+@Schema
 public class DoctorCreateRequestDto {
 
     @NotBlank
@@ -28,7 +25,7 @@ public class DoctorCreateRequestDto {
     @Schema(example = "Doe")
     private String surname;
 
-    // Assuming location details are part of the doctorEntity creation
+
     @NotBlank
     @Size(max = 255)
     @Schema(example = "Central Hospital")
@@ -49,8 +46,6 @@ public class DoctorCreateRequestDto {
     @Schema(example = "USA")
     private String country;
 
-    // If you have specializations as part of doctorEntity creation
-    // Use an appropriate type to represent the specializations, e.g., a list of IDs
     @Schema(example = "1")
     private Long specializationId;
 

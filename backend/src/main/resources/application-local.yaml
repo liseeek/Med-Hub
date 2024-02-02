@@ -14,3 +14,9 @@ jwt:
       - /v1/users/registration
       - v1/specializations
       - v1/doctors/adding
+      - v1/doctors/getAllDoctors
+      - v1/doctors/bySpecialization/**
+      - v1/doctors/{doctorId}/availability
+      - v1/appointments
+      - v1/appointments/**
+      - v1/appointments/user

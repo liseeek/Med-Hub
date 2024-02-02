@@ -26,7 +26,6 @@ const Adding = () => {
                 setSpecializations(response.data);
             } catch (error) {
                 console.error('Failed to fetch specializations', error);
-                // Handle error appropriately
             }
         };
 

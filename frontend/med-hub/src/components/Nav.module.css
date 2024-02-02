@@ -22,7 +22,7 @@
     font-size: 1.5rem;
   }
   
-  .navActiveLink:hover {
+  .navActiveLink:hover, .navActiveLink:hover {
     background-color: #bebbbb; /* or any other style for active links */
   }
   

@@ -48,4 +48,14 @@ public class DoctorController {
     public DoctorDto getDoctor(@PathVariable Long id) {
         return doctorService.getDoctor(id);
     }
+
+    @GetMapping("/bySpecialization/{specializationId}")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(description = "Get Doctors by Specialization")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Doctors fetched successfully")
+    })
+    public List<DoctorDto> getDoctorsBySpecialization(@PathVariable Long specializationId) {
+        return doctorService.getDoctorsBySpecialization(specializationId);
+    }
 }
