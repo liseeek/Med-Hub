@@ -24,7 +24,7 @@ public class SpecializationController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    @Operation(description = "Get all specializations.")
+    @Operation(summary = "Get all specializations.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Specializations retrieved successfully.")
     })

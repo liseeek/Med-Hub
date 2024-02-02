@@ -21,7 +21,7 @@ public class DoctorController {
 
     @PostMapping( path = "/adding", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(description = "Creates a new doctor.")
+    @Operation(summary = "Creates a new doctor.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "New doctor created successfully.")
     })
@@ -31,7 +31,7 @@ public class DoctorController {
 
     @GetMapping(path = "/getAllDoctors")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(description = "Get Doctors")
+    @Operation(summary = "Get Doctors")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Doctors get succesfully")
     })
@@ -41,7 +41,7 @@ public class DoctorController {
 
     @GetMapping(path = "/getDoctor/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(description = "Get Doctor")
+    @Operation(summary = "Get Doctor")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Doctors get succesfully")
     })
@@ -51,7 +51,7 @@ public class DoctorController {
 
     @GetMapping("/bySpecialization/{specializationId}")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(description = "Get Doctors by Specialization")
+    @Operation(summary = "Get Doctors by Specialization")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Doctors fetched successfully")
     })

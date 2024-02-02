@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping( path = "/registration", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(description = "Creates new service user.")
+    @Operation(summary = "Creates new service user.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "New user created successfully.")
     })

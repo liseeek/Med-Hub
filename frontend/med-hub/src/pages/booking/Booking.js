@@ -7,7 +7,7 @@ import NavRespo from '../../components/NavRespo';
 import logo from '../../img/logo.svg';
 import axios from "axios";
 import { jwtDecode } from 'jwt-decode';
-import {getAuthToken} from "../../helpers/axios_helper";
+import {getAuthToken} from "../../helpers/axiosHelper";
 
 const Booking = () => {
     const [formData, setFormData] = useState({

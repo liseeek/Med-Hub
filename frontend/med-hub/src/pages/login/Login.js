@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setAuthHeader, request, getAuthToken } from '../../helpers/axios_helper';
+import { setAuthHeader, request, getAuthToken } from '../../helpers/axiosHelper';
 import { jwtDecode } from 'jwt-decode';
 import {Helmet} from "react-helmet";
 import logo from '../../img/logo.svg'; 

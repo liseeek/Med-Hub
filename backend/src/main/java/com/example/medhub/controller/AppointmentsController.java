@@ -23,7 +23,7 @@ public class AppointmentsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(description = "Creates a new appointment.")
+    @Operation(summary = "Creates a new appointment.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "New appointment created successfully.")
     })
@@ -32,7 +32,7 @@ public class AppointmentsController {
     }
     @GetMapping("/user")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(description = "Get Appointments for the current User")
+    @Operation(summary = "Get Appointments for the current User")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Appointments retrieved successfully")
     })
@@ -58,7 +58,7 @@ public class AppointmentsController {
 
     @DeleteMapping("/{appointmentId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(description = "Cancel an appointment.")
+    @Operation(summary = "Cancel an appointment.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Appointment canceled successfully."),
             @ApiResponse(responseCode = "404", description = "Appointment not found.")

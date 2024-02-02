@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ProtectedRoute from "./helpers/protectedRoute";
 import Register from './pages/register/Register';
 import Login from './pages/login/Login';
 import MainPage from './pages/mainpage/MainPage';
@@ -8,6 +9,7 @@ import Booking from './pages/booking/Booking';
 import Schedule from './pages/schedule/Schedule';
 import './global.css'
 
+
 function App() {
   return (
   <Router>
@@ -15,12 +17,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />}/>
         <Route path="/register" element={<Register />} />
-        <Route path="/mainpage" element={<MainPage />} />
-        <Route path="/adding" element={<Adding />} />
-        <Route path="/booking" element={<Booking />} />
-        <Route path="/schedule" element={<Schedule />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/mainpage" element={<MainPage />} />
+          <Route path="/adding" element={<Adding />} />
+          <Route path="/booking" element={<Booking />} />
+          <Route path="/schedule" element={<Schedule />} />
+        </Route>
       </Routes>
-      
     </div>
   </Router>
     

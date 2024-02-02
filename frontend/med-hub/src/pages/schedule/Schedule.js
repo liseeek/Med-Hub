@@ -4,7 +4,7 @@ import styles from './Schedule.module.css';
 import NavRespo from '../../components/NavRespo';
 import logo from '../../img/logo.svg';
 import axios from "axios";
-import { getAuthToken } from "../../helpers/axios_helper";
+import { getAuthToken } from "../../helpers/axiosHelper";
 
 const Schedule = () => {
   const [appointments, setAppointments] = useState([]);
