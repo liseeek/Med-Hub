@@ -14,6 +14,7 @@ public abstract class AppointmentsMapper {
     @Mapping(target = "user", source = "userEntity")
     @Mapping(target = "doctor", source = "doctorEntity")
     @Mapping(target = "location", source = "locationEntity")
+    @Mapping(target = "doctor.specialization", source = "doctorEntity.specializationEntity")
     public abstract AppointmentsDto toAppointmentDto(AppointmentsEntity appointment);
 
 }

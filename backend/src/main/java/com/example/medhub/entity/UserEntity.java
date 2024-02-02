@@ -74,5 +74,4 @@ public class UserEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-    // Additional constructors, getters and setters for all fields
 }

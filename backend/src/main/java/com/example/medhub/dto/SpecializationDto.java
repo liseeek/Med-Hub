@@ -8,7 +8,5 @@ import lombok.RequiredArgsConstructor;
 public class SpecializationDto {
     private final Long specializationId;
     private final String specializationName;
-
-    // You can add additional fields if needed
 }
 

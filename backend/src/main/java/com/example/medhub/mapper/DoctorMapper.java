@@ -17,7 +17,6 @@ public abstract class DoctorMapper {
 
     public abstract DoctorDto toDoctorDto(DoctorEntity doctorEntity);
 
-    // New method to handle conversion with SpecializationDto
     @Mapping(target = "specialization", source = "specialization")
     public abstract DoctorDto toDoctorDto(DoctorEntity doctorEntity, SpecializationDto specialization);
 }

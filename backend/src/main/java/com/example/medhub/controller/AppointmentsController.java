@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,19 +30,30 @@ public class AppointmentsController {
     public AppointmentsDto createAppointment(@RequestBody AppointmentsCreateRequestDto newAppointment) {
         return appointmentsService.createAppointment(newAppointment);
     }
-    @GetMapping("/user/{userId}")
+    @GetMapping("/user")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(description = "Get Appointments for User")
+    @Operation(description = "Get Appointments for the current User")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Appointments retrieved successfully")
     })
-    public List<AppointmentsDto> getAppointmentsByUserId(@PathVariable Long userId) {
-        return appointmentsService.getAppointmentsByUserId(userId);
+    public List<AppointmentsDto> getAppointmentsForCurrentUser() {
+        return appointmentsService.getAppointmentsForCurrentUser();
     }
-    // Additional endpoints for other operations like get, update, delete appointments
-    // Example:
-    // @GetMapping("/{id}")
-    // public AppointmentDto getAppointment(@PathVariable Long id) {
-    //     return appointmentService.getAppointment(id);
-    // }
+
+    @GetMapping("/user/{userId}/test")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Get Appointments for a specific User by ID", description = "Retrieve all appointments for a given user ID. This is for testing purposes.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Appointments retrieved successfully"),
+            @ApiResponse(responseCode = "404", description = "User not found")
+    })
+    public ResponseEntity<List<AppointmentsDto>> getAppointmentsByUserIdForTest(@PathVariable Long userId) {
+        try {
+            List<AppointmentsDto> appointments = appointmentsService.getAppointmentsByUserId(userId);
+            return new ResponseEntity<>(appointments, HttpStatus.OK);
+        } catch (UsernameNotFoundException ex) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }
+

@@ -3,40 +3,38 @@ package com.example.medhub.dto.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Getter
+@Data
 @AllArgsConstructor
-@Schema(description = """
-        Schema responsible for handling new appointment creation operation.
-        Contains all required information which must be provided to create and save a new appointment in the system.
-        """)
+@NoArgsConstructor
+@Getter
+@Schema
 public class AppointmentsCreateRequestDto {
 
     @NotNull
     @Schema(example = "1")
-    private final Long userId;
+    private Long userId;
 
     @NotNull
     @Schema(example = "2")
-    private final Long doctorId;
+    private Long doctorId;
 
     @NotNull
     @Schema(example = "2023-01-01")
-    private final LocalDate date;
+    private LocalDate date;
 
     @NotNull
     @Schema(type = "string", format = "time", example = "14:00")
-    private final LocalTime time;
+    private LocalTime time;
 
     @NotNull
-    @Schema(example = "2")
-    private final Long locationId;
+    private Long locationId;
 
-
-    // Constructors, getters, and other necessary methods
 }
