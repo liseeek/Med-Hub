@@ -23,7 +23,7 @@ To install Med-Hub, follow these steps:
 ```
 2. Set up the infrastructure with a local PostgreSQL Database using Docker:
 
-Run this command in the root folder of the project.
+- Run this command in the root folder of the project.
 ```
 docker-compose up
 ```
@@ -33,9 +33,8 @@ docker-compose up
 ```
 ./gradlew clean build
 ```
-And
 ```
-./gradlew run
+./gradlew bootRun
 ```
 3. Start the frontend application:
 - Navigate to the `frontend/med-hub` directory.
