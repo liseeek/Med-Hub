@@ -10,6 +10,7 @@ import com.example.medhub.repository.AppointmentsRepository;
 import com.example.medhub.repository.DoctorRepository;
 import com.example.medhub.repository.UserRepository;
 import com.example.medhub.repository.LocationRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -66,6 +67,11 @@ public class AppointmentsService {
                 .map(AppointmentsMapper.APPOINTMENTS_MAPPER::toAppointmentDto)
                 .collect(Collectors.toList());
     }
-    // Other service methods like getAppointment, updateAppointment, deleteAppointment, etc.
+    public void cancelAppointment(Long appointmentId) {
+        if (!appointmentsRepository.existsById(appointmentId)) {
+            throw new EntityNotFoundException("Appointment with ID: " + appointmentId + " does not exist.");
+        }
+        appointmentsRepository.deleteById(appointmentId);
+    }
 }
 

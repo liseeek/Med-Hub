@@ -10,37 +10,48 @@ const Schedule = () => {
   const [appointments, setAppointments] = useState([]);
   const [messages, setMessages] = useState('');
 
+  const fetchAppointments = async () => {
+    const token = getAuthToken();
+    if (!token) {
+      console.error('No token found');
+      setMessages('You are not authenticated. Please log in.');
+      return;
+    }
+
+    try {
+      const response = await axios.get('/v1/appointments/user', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setAppointments(response.data);
+      // Reset messages if fetch is successful
+      setMessages('');
+    } catch (error) {
+      console.error("Failed to fetch appointments:", error);
+      setMessages("Failed to fetch appointments. Please try again later.");
+    }
+  };
+
   useEffect(() => {
-    const fetchAppointments = async () => {
-      const token = getAuthToken();
-      if (!token) {
-        console.error('No token found');
-        return;
-      }
-
-      try {
-        const response = await axios.get('/v1/appointments/user', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setAppointments(response.data);
-      } catch (error) {
-        console.error("Failed to fetch appointments:", error);
-        setMessages("Failed to fetch appointments. Please try again later.");
-      }
-    };
-
     fetchAppointments();
   }, []);
 
   const handleCancel = async (appointmentId) => {
     const token = getAuthToken();
+    if (!token) {
+      console.error('No token found');
+      setMessages('You are not authenticated. Please log in.');
+      return;
+    }
+
     try {
       await axios.delete(`/v1/appointments/${appointmentId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMessages("Appointment canceled successfully.");
+      // Refresh the list of appointments
+      fetchAppointments(); // Ensure you have a method to refetch appointments
     } catch (error) {
-      console.error("Failed to cancel appointment:", error);
+      console.error("Failed to cancel appointment:", error.response?.data?.message || "Error occurred");
       setMessages("Failed to cancel the appointment. Please try again.");
     }
   };

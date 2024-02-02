@@ -55,5 +55,16 @@ public class AppointmentsController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/{appointmentId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(description = "Cancel an appointment.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Appointment canceled successfully."),
+            @ApiResponse(responseCode = "404", description = "Appointment not found.")
+    })
+    public void cancelAppointment(@PathVariable Long appointmentId) {
+        appointmentsService.cancelAppointment(appointmentId);
+    }
 }
 
