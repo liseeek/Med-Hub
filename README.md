@@ -21,28 +21,24 @@ To install Med-Hub, follow these steps:
 ```
    git clone https://github.com/your-username/GraveManager.git 
 ```
-2. Set up the infrastructure with a local PostgreSQL Database using Docker:
-
-- Run this command in the root folder of the project.
-```
-docker-compose up
-```
-3. Start the backend application:
+2. Start the backend application:
 - Navigate to the `backend` directory.
 - Run the command:
 ```
 ./gradlew clean build
 ```
-```
-./gradlew bootRun
-```
 3. Start the frontend application:
 - Navigate to the `frontend/med-hub` directory.
 - Run the following command:
   ```
-  npm start
+  npm install
   ```
-- Open http://localhost:3000 to view in the browser.
+4. Set up the infrastructure with Docker to start the application:
+
+- Run this command in the root folder of the project.
+```
+docker-compose up
+```
 ## Usage and Features
 
 #### Med-Hub offers several key features, including:

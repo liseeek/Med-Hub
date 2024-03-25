@@ -9,6 +9,32 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     volumes:
-      - ./postgres-db-data:/data/postgres
+      - ./postgres-db-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        JAR_FILE: build/libs/med-hub-0.0.1-SNAPSHOT.jar
+    container_name: medhub-backend-container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/med-hub-db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+
+  frontend:
+    build:
+      context: ./frontend/med-hub
+      dockerfile: Dockerfile
+    container_name: medhub-frontend-container
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
