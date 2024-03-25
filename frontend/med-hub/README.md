@@ -1,4 +1,4 @@
-# Med-Hub Frontend 
+# MedHub Frontend 
 In the project directory, you can run:
 
 ```
