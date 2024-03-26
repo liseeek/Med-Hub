@@ -37,7 +37,7 @@ To install Med-Hub, follow these steps:
 
 - Run this command in the root folder of the project.
 ```
-docker-compose up
+docker-compose up --build
 ```
 ## Usage and Features
 
